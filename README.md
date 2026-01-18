@@ -1,52 +1,69 @@
 # Discord Leave Bot
 
-## 概要
-Discordのボイスチャットで指定した時間になったら自動で抜けるBotです。
+Discordのボイスチャンネル（VC）から  
+**指定した時刻** または **指定した分数後** に自動退出する Bot です。
 
-- `/leave_at [HH:MM]` : 指定した時間にVCから自動で退出
-- `/leave_cancel` : 予約をキャンセル
-
-Windows用のexeで簡単に起動できます。
+スラッシュコマンド対応（Discord.js v14）。
 
 ---
 
-## ダウンロード
+## 機能
 
-最新の配布ファイルは **Releases** からダウンロードしてください：
+- `/leave_after minutes:10`  
+  → 指定分後に VC から退出
+- `/leave_at time:23:30`  
+  → 指定時刻に VC から退出
+- `/leave_cancel`  
+  → 予約をキャンセル
 
-[Releasesページ](https://github.com/kiryu-prog/discord-leave-bot/releases)
-
-- ファイル: `discord-leave-bot.exe`
-
----
-
-## 使い方
-
-1. **exe をダウンロード**  
-2. 初回起動時に **Bot Token** を入力（Discord Developer Portal で取得）  
-   - Token は絶対に他人に教えないでください  
-3. 起動後、Discordで `/leave_at` `/leave_cancel` が使用可能  
-4. BotがVCを抜けるまで exe ウィンドウは閉じないでください
+※ すべて **自分にだけ表示されるメッセージ（ephemeral）**
 
 ---
 
-## 注意事項
+## 動作環境
 
-- Windows Defender などで警告が出る場合がありますが、自作Botのexeでは問題ありません  
-- Discordサーバーに招待するときは、**Connect** と **Move Members** の権限が必要です  
-- `config.json` は GitHub には含めていません  
-  - Token はローカルでのみ保持されます  
-
----
-
-## 開発用
-
-- ソースコードはこのリポジトリにあります  
-- コマンドを追加する場合は `commands/` に `.js` ファイルを作成  
-- ビルド: `npm run build` → exe生成（pkg使用）
+- Node.js **18以上**
+- Discord.js v14
+- Windows（exe 配布対応）
 
 ---
 
-## ライセンス
+## セットアップ（Node.js で実行する場合）
 
-MIT License
+### 1. 依存関係をインストール
+
+```bash
+npm install
+
+2. .env を作成
+
+プロジェクト直下に .env を作成し、以下を記入：
+
+DISCORD_TOKEN=あなたのBotトークン
+CLIENT_ID=あなたのApplicationID
+
+⚠ .env は GitHub に push しないでください
+
+3. スラッシュコマンド登録（初回のみ）
+node register.js
+成功すると：
+
+コマンド登録完了
+
+4. Bot 起動
+node index.js
+
+exe 版の使い方（配布用）
+フォルダ構成
+DiscordLeaveBot/
+├─ run.exe
+├─ setup.exe
+├─ .env
+└─ README.md
+
+手順
+1.env を編集
+2.初回のみ
+setup.exe
+3.普段は
+run.exe
